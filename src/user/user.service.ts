@@ -26,11 +26,11 @@ export class UserService {
     return await this.userModel.findOne({ stack_address: stackAddress });
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     await this.userModel.updateOne({ id: id }, updateUserDto);
   }
 
-  remove(id: number) {
-    this.userModel.deleteOne({ id: id });
+  async remove(id: string) {
+    await this.userModel.deleteOne({ id: id });
   }
 }

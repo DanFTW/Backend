@@ -27,6 +27,7 @@ export class UserResponseDto {
 
 export class CreateUserDto extends UserResponseDto {}
 
+@modelOptions({ schemaOptions: { _id: false } })
 export class Experience {
   @ApiProperty() @Property() name: string;
   @ApiProperty() @Property() duration: string;
@@ -34,6 +35,7 @@ export class Experience {
   @ApiProperty() @Property() description: string;
 }
 
+@modelOptions({ schemaOptions: { _id: false } })
 export class Education {
   @ApiProperty() @Property() name: string;
   @ApiProperty() @Property() duration: string;

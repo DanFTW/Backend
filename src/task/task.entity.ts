@@ -13,8 +13,10 @@ import { User } from 'src/user/user.entity';
 export class TaskResponseDto {
   @ApiProperty() @Property({ required: true }) title!: string;
   @ApiProperty() @Property({ required: true }) description!: string;
-  @ApiProperty() @Property({ required: true, ref: () => User }) poster!: User;
-  @ApiProperty() @Property({ ref: () => User }) assigned_to?: User;
+  @ApiProperty()
+  @Property({ required: true, ref: () => User })
+  poster!: Ref<User>;
+  @ApiProperty() @Property({ ref: () => User }) assigned_to?: Ref<User>;
   @ApiProperty() @Property({ required: true }) duration!: string;
   @ApiProperty() @Property({ required: true }) tag!: string;
 }

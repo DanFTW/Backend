@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
+import { ReturnModelType } from '@typegoose/typegoose';
+import { InjectModel } from 'nestjs-typegoose';
+import { CreateTaskDto, UpdateTaskDto, Task } from './task.entity';
 
 @Injectable()
 export class TaskService {
-  create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+  constructor(
+    @InjectModel(Task) private readonly taskModel: ReturnModelType<typeof Task>,
+  ) {}
+
+  async create(createTaskDto: CreateTaskDto) {
+    return await this.taskModel.create(createTaskDto);
   }
 
-  findAll() {
-    return `This action returns all task`;
+  async findAll() {
+    return await this.taskModel.find({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  async findOne(id: string) {
+    return await this.taskModel.findById(id);
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async update(id: string, updateTaskDto: UpdateTaskDto) {
+    await this.taskModel.updateOne({ id: id }, updateTaskDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: string) {
+    await this.taskModel.deleteOne({ id: id });
   }
 }
